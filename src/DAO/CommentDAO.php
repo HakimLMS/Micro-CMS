@@ -1,6 +1,7 @@
 <?php
 
 namespace MicroCMS\DAO;
+use MicroCMS\Domain\Comment;
 
 class CommentDAO extends DAO 
 {
