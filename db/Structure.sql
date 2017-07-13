@@ -7,9 +7,6 @@
  * Author:  Hakim
  * Created: 23 juin 2017
  */
-drop table if exists t_articles;
-drop table if exists t_comment;
-
 create table t_articles
 (
 art_id integer not null primary key auto_increment,
