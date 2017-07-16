@@ -107,13 +107,13 @@ class Comment
     public function setParent($comment)
     {
         $this->parent= $comment;
+        return $this;
     }
     
-    public function setChild($Childrens)
-    {
-        $childrens = array();
-        $childrens[] = $Childrens;
-        $this->children = $childrens;
+    public function setChild($child)
+    {    
+        $this->children = $child;
+        return $this;
     }
 
 

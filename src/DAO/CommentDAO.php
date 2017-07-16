@@ -30,19 +30,43 @@ class CommentDAO extends DAO
         $sql = "select com_id, com_content, com_author, parent_id, depth from t_comment where art_id=? order by com_id";
         $result = $this->getDb()->fetchAll($sql, array($articleId));
         // Convert query result to an array of domain objects
+        
         $comments = array();
+        
         foreach ($result as $row) {
             
             $comId = $row['com_id'];
             $comment = $this->buildDomainObject($row);
+            
             // The associated article is defined for the constructed comment
             $comment->setArticle($article);
             $comments[$comId] = $comment;
-            
         }
         
+        
+        foreach ($comments as $comment){
+            $parent_id = $comment->getParent();            
+            if ($parent_id != 0)
+            {
+               $parent = $comments[$parent_id];
+               $childrens[$comment->getId()] = $comment;
+               $childrens_by_parent = $this->findChild($childrens,$parent->getId());
+               $parent->setChild($childrens_by_parent);
+            }  
+        }
+        
+        foreach ($comments as $comment)
+        {
+            if($comment->getParent() != 0)
+            {
+                $key = $comment->getId();
+                unset($comments[$key]);
+            }
+        }
+  
         return $comments;
     }
+    
 
     /**
      * Creates an Comment object based on a DB row.
@@ -52,14 +76,16 @@ class CommentDAO extends DAO
      */
     protected function buildDomainObject(array $row) {
         
-        $comment = $this->builduniqueComment($row);     
-
+        $comment = $this->buildUniqueComment($row);
+        
         if (array_key_exists('art_id', $row)) {
             // Find and set the associated article
             $articleId = $row['art_id'];
             $article = $this->articleDAO->find($articleId);
             $comment->setArticle($article);
         }
+        
+
         return $comment;   
     }
     
@@ -71,22 +97,20 @@ class CommentDAO extends DAO
         $comment->setAuthor($row['com_author']);
         $comment->setParent($row['parent_id']);
         $comment->setDepth($row['depth']);
-        
-        $childrens = $this->findChildrens($comment->getId());
-        foreach ($childrens as $row)
-        {             
-            $unique_child = $this->buildUniqueComment($row);
-            $comment->setChild($unique_child);
-        }
-  
         return $comment;
     }
 
-    protected function findChildrens($comment_id)
+    protected function findChild(array $comments, $parent_id)
     {
-     $sql = "SELECT * FROM t_comment WHERE parent_id=?";
-     $result = $this->getDb()->fetchAll($sql, array($comment_id));     
-     return $result;
+       Foreach ($comments as $comment)
+       {
+           if ($parent_id == $comment->getParent())
+           {              
+              $selected_comments[] = $comment;
+           }     
+       }
+    return $selected_comments;
+       
     }
     
 }

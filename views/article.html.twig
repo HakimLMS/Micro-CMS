@@ -3,20 +3,33 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
-<p>
+    
     <h2>{{ article.title }}</h2>
     <p>{{ article.content }}</p>
+   
+    <div class="Comments-container">
     <h3>Comments</h3>
         {%if comments != null %}
         {% for comment in comments %}
-            {%if comment.children == null and comment.parent == 0%}
-                <p><strong>{{ comment.author }}</strong> said : {{ comment.content }}<br><p>
-
-
-            {% endif %}
+            
+            <div class="row">
+                <p><div class="col-md-5"><strong>{{ comment.author }}</strong> said : {{ comment.content }}</div><br>
+                {% if comment.children != null %}
+                   {% for child in comment.children %}              
+                        <div class="col-md-5 col-md-offset-1"><strong>{{child.author }}</strong> said : {{ child.content }}</div><br>                   
+                        {% if child.children != null %}
+                            {% for child2 in child.children %}                               
+                                <div class="col-md-5 col-md-offset-2"><strong>{{child2.author }}</strong> said : {{ child2.content }}</div></p></div>                       
+                            {% endfor %}
+                        {% endif %}                   
+                    {%endfor%}
+                {% else %}
+                </div>
+                {% endif%}
+                
         {% endfor %}
         {% else %}
         No comments yet...
         {% endif %}
-        </p>
+    </div>
 {% endblock %}
