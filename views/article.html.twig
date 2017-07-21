@@ -2,34 +2,58 @@
 
 {% block title %}{{ article.title }}{% endblock %}
 
-{% block content %}
-    
+{% block content %}    
     <h2>{{ article.title }}</h2>
     <p>{{ article.content }}</p>
    
     <div class="Comments-container">
-    <h3>Comments</h3>
-        {%if comments != null %}
-        {% for comment in comments %}
-            
-            <div class="row">
-                <p><div class="col-md-5"><strong>{{ comment.author }}</strong> said : {{ comment.content }}</div><br>
-                {% if comment.children != null %}
-                   {% for child in comment.children %}              
-                        <div class="col-md-5 col-md-offset-1"><strong>{{child.author }}</strong> said : {{ child.content }}</div><br>                   
-                        {% if child.children != null %}
-                            {% for child2 in child.children %}                               
-                                <div class="col-md-5 col-md-offset-2"><strong>{{child2.author }}</strong> said : {{ child2.content }}</div></p></div>                       
-                            {% endfor %}
-                        {% endif %}                   
-                    {%endfor%}
-                {% else %}
-                </div>
-                {% endif%}
-                
+        <div class="commentsReader">
+        <h3>Comments</h3>
+            {%if comments != null %}
+            {% for comment in comments %}
+                <div class="row">
+                <div class="col-md-12"><span class="author">{{ comment.author}}</span> a dit : <button class="btn btn-default"><a href="{{article.id}}?replyto={{comment.id}}">répondre</a></button> <br>{{ comment.content }}
+                    {% if parent_id != null and parent_id == comment.id %}
+                        <div class="col-md-12">
+                            <h4>Répondre a{{comment.author}} :</h4>
+                        {% block replytocomment %}{%include "commentform.html.twig"%}{% endblock %}
+                        </div>
+                    {% else %}
+                    </div>        
+                    {% endif %}  
+                    
+                    {% if comment.children != null %}
+                       {% for child in comment.children %}              
+                       <div class="col-md-12" style="margin-left: 50px;"><span class="author">{{ child.author}}</span> a dit : <button class="btn btn-default"><a href="{{article.id}}?replyto={{child.id}}">répondre</a></button> <br> {{ child.content }}                  
+                            {% if parent_id != null and parent_id == child.id %}
+                                <div class="col-md-12">
+                                    <h4>Répondre a {{child.author}} :</h4>
+                                {% block replytochild %}{%include "commentform.html.twig"%}{% endblock %}
+                                </div>
+                            {%else%}
+                            </div>
+                            {% endif %}     
+
+                            {% if child.children != null %}
+                                    {% for child2 in child.children %}                               
+                                        <div class="col-md-12" style="margin-left: 100px;"><span class="author">{{child2.author}}</span> a dit : <br> {{ child2.content }}</div>
+                                    {% endfor %}
+                                 {% else %}
+                                     </div><br><!-- /.row -->
+                            {% endif %}                   
+            {%endfor%}</div><br> 
+                    {% else %}
+                    </div><br><!-- /.row -->
+                    {% endif%}
         {% endfor %}
+            {% else %}
+            No comments yet... </div>
+            {% endif %}
+        {% if parent_id ==null %}
+            <div class="col-md-12">
+            {% block comment %}{%include "commentform.html.twig"%}{% endblock %}
+            </div>
         {% else %}
-        No comments yet...
-        {% endif %}
-    </div>
+            <div class="col-md-12"><button class="btn btn-default"><a href="{{article.id}}">Commenter l'article</a></button></div>
+        {% endif%}
 {% endblock %}

@@ -9,9 +9,15 @@ class CommentDAO extends DAO
      * @var \MicroCMS\DAO\ArticleDAO
      */
     private $articleDAO;
+    
+    private $userDAO;
 
     public function setArticleDAO(ArticleDAO $articleDAO) {
         $this->articleDAO = $articleDAO;
+    }
+
+    public function setUserDAO(UserDAO $userDAO) {
+        $this->userDAO = $userDAO;
     }
 
     /**
@@ -27,7 +33,7 @@ class CommentDAO extends DAO
 
         // art_id is not selected by the SQL query
         // The article won't be retrieved during domain objet construction
-        $sql = "select com_id, com_content, com_author, parent_id, depth from t_comment where art_id=? order by com_id";
+        $sql = "select com_id, com_content, com_author, com_mail, parent_id from t_comment where art_id=? order by com_id";
         $result = $this->getDb()->fetchAll($sql, array($articleId));
         // Convert query result to an array of domain objects
         
@@ -43,7 +49,6 @@ class CommentDAO extends DAO
             $comments[$comId] = $comment;
         }
         
-        
         foreach ($comments as $comment){
             $parent_id = $comment->getParent();            
             if ($parent_id != 0)
@@ -55,15 +60,6 @@ class CommentDAO extends DAO
             }  
         }
         
-        foreach ($comments as $comment)
-        {
-            if($comment->getParent() != 0)
-            {
-                $key = $comment->getId();
-                unset($comments[$key]);
-            }
-        }
-  
         return $comments;
     }
     
@@ -84,6 +80,13 @@ class CommentDAO extends DAO
             $article = $this->articleDAO->find($articleId);
             $comment->setArticle($article);
         }
+        if (array_key_exists('usr_id', $row)) {
+            // Find and set the associated author
+            $userId = $row['usr_id'];
+            $user = $this->userDAO->find($userId);
+            
+            $comment->setAuthor($user);
+        }
         
 
         return $comment;   
@@ -95,13 +98,15 @@ class CommentDAO extends DAO
         $comment->setId($row['com_id']);
         $comment->setContent($row['com_content']);
         $comment->setAuthor($row['com_author']);
+        $comment->setMail($row['com_mail']);
         $comment->setParent($row['parent_id']);
-        $comment->setDepth($row['depth']);
         return $comment;
     }
 
-    protected function findChild(array $comments, $parent_id)
+    public function findChild(array $comments, $parent_id)
     {
+       $selected_comments = array();
+       
        Foreach ($comments as $comment)
        {
            if ($parent_id == $comment->getParent())
@@ -113,4 +118,28 @@ class CommentDAO extends DAO
        
     }
     
+    public function  SaveComment(Comment $comment)
+    {
+        $commentdata = array(
+            'art_id' => $comment->getArticle()->getId(),
+            'com_author' => $comment->getAuthor(),
+            'com_content' => $comment->getContent(),
+            'com_mail' => $comment->getMail(),
+            'parent_id' => $comment->getParent()
+        );
+        
+        
+        
+        if($comment->getId())
+        {
+            var_dump($commentdata);
+            $this->getDb()->update('t_comment',$commentdata,array('com_id' => $comment->getId()));
+        }
+        else
+        {
+            $this->getDb()->insert('t_comment', $commentdata);
+            $id = $this->getDb()->lastinsertID();
+            $comment->setId($id);
+        }
+    }
 }

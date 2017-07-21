@@ -53,6 +53,12 @@ class Comment
      */
     private $children;
     
+     /**
+     * Mail
+     *
+     * @var \MicroCMS\Domain\Comment
+     */
+    private $mail;
     
     
 
@@ -82,6 +88,10 @@ class Comment
 
     public function getArticle() {
         return $this->article;
+    }
+    
+    public function getMail(){
+        return $this->mail;
     }
     
     public function setId($id) {
@@ -121,7 +131,11 @@ class Comment
         $this->article = $article;
         return $this;
     }
-    
+     public function setMail($mail)
+    {
+         $this->mail = $mail;
+         return $this;
+    }
     
         
 }
