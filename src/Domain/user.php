@@ -46,6 +46,9 @@ class User implements UserInterface
      * @var string
      */
     private $role;
+    
+    
+    private $mail;
 
     public function getId() {
         return $this->id;
@@ -53,6 +56,15 @@ class User implements UserInterface
 
     public function setId($id) {
         $this->id = $id;
+        return $this;
+    }
+    
+    public function getMail() {
+        return $this->mail;
+    }
+    
+    public function setMail($mail) {
+        $this->mail = $mail;
         return $this;
     }
 

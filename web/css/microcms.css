@@ -26,3 +26,8 @@ body {
     font-weight: bold;
     color: blue;
 }
+
+.adminTable {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

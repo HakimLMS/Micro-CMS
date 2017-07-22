@@ -92,6 +92,12 @@ class CommentDAO extends DAO
         return $comment;   
     }
     
+    /**
+     * Creates an Comment object based on a DB row.
+     *
+     * @param array $row The DB row containing Comment data.
+     * @return \MicroCMS\Domain\Comment
+     */
     protected function buildUniqueComment(array $row)
     {
         $comment = new Comment();
@@ -103,6 +109,13 @@ class CommentDAO extends DAO
         return $comment;
     }
 
+    /**
+     * Finds every childs of a comment.
+     *
+     * @param array $comments TheDb array containing all objects comments.
+     * @param $parent_id the id of the Comment object 'parent'
+     * @return array \MicroCMS\Domain\Comment
+     */
     public function findChild(array $comments, $parent_id)
     {
        $selected_comments = array();
@@ -118,6 +131,12 @@ class CommentDAO extends DAO
        
     }
     
+    
+    /**
+     * Saves or update an Comment object 
+     *
+     * @param object comment to save in DB
+     */
     public function  SaveComment(Comment $comment)
     {
         $commentdata = array(
@@ -126,9 +145,7 @@ class CommentDAO extends DAO
             'com_content' => $comment->getContent(),
             'com_mail' => $comment->getMail(),
             'parent_id' => $comment->getParent()
-        );
-        
-        
+        );    
         
         if($comment->getId())
         {
@@ -142,4 +159,64 @@ class CommentDAO extends DAO
             $comment->setId($id);
         }
     }
+    
+    
+    /**
+     * Returns a list of all comments, sorted by date (most recent first).
+     *
+     * @return array A list of all comments.
+     */
+    public function findAll() {
+        $sql = "select * from t_comment order by com_id desc";
+        $result = $this->getDb()->fetchAll($sql);
+
+        // Convert query result to an array of domain objects
+        $comments = array();
+        foreach ($result as $row) {
+            $id = $row['com_id'];
+            $comments[$id] = $this->buildDomainObject($row);
+        }
+        return $comments;
+    }
+    
+    /**
+     * Removes all comments for an article
+     *
+     * @param $articleId The id of the article
+     */
+    public function deleteAllByArticle($articleId) {
+        $this->getDb()->delete('t_comment', array('art_id' => $articleId));
+    }
+    
+       /**
+     * Returns a comment matching the supplied id.
+     *
+     * @param integer $id The comment id
+     *
+     * @return \MicroCMS\Domain\Comment|throws an exception if no matching comment is found
+     */
+    public function find($id) {
+        $sql = "select * from t_comment where com_id=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($id));
+
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("No comment matching id " . $id);
+    }
+
+    // ...
+
+    /**
+     * Removes a comment from the database.
+     *
+     * @param @param integer $id The comment id
+     */
+    public function delete($id) {
+        // Delete the comment
+        $this->getDb()->delete('t_comment', array('com_id' => $id));
+    }
+
+    
+    
 }
