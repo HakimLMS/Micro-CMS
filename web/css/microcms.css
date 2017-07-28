@@ -2,8 +2,16 @@
     text-decoration: none;
 }
 body { 
-    padding-top: 50px; 
+    padding-top: 50px;
+    background-color: #e6e6e6;
+
 }
+
+.navbar-inverse {
+    background-color: #f5f5f5;
+    border-color: #080808;
+}
+
 
 .footer {
     border-top: 1px solid #ccc;
@@ -30,4 +38,117 @@ body {
 .adminTable {
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+#container {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+
+h6{
+    font-size: 0.2em;
+}
+
+#tab-title{
+    text-align: center;
+}
+
+.comment-box .comment-head {
+	background: #FCFCFC;
+	padding: 10px 12px;
+	border-bottom: 1px solid #E5E5E5;
+	overflow: hidden;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+        font-weight: bold;
+}
+
+
+.comment-box .comment-name {
+	color: #283035;
+	font-size: 14px;
+	font-weight: 700;
+	float: left;
+	margin-right: 10px;
+}
+
+.comment-box .comment-name a {
+	color: #283035;
+}
+
+.comment-box .comment-head span {
+	float: left;
+	color: #999;
+	font-size: 13px;
+	position: relative;
+	top: 1px;
+}
+
+.comment-box .comment-content {
+	background: #FFF;
+	padding: 12px;
+	font-size: 15px;
+	color: #595959;
+	-webkit-border-radius: 0 0 4px 4px;
+	-moz-border-radius: 0 0 4px 4px;
+	border-radius: 0 0 4px 4px;
+}
+
+.comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #03658c;}
+.comment-box .comment-name.by-author:after {
+	content: 'autor';
+	background: #03658c;
+	color: #FFF;
+	font-size: 12px;
+	padding: 3px 5px;
+	font-weight: 700;
+	margin-left: 10px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.comment-box .right .btn
+{
+     background: rgba(38, 166, 84, 0.67);
+}
+
+.comment-box .right  .btn a
+{
+    color: white;
+}
+
+.wrapper{
+    border-left: solid;
+    border-right: solid;
+}
+
+
+.container .article {
+    background-color: white;
+    /* border: navy; */
+    border-radius: 5px 5px 5px 5px;
+    /* margin: 20px; */
+    padding: 20px;
+    width: 107%;
+}
+
+h6{
+    color: rgba(255, 0, 0, 0.47);
+}
+
+.btn, .btn-large {
+    text-decoration: none;
+    color: #fff;
+    background-color: rgba(38, 166, 84, 0.67) !important;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+}
+
+label{
+    color: black !important;
+    font-size: 1.2em !important;
 }

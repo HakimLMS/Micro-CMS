@@ -24,6 +24,13 @@ class Article
      * @var string
      */
     private $content;
+    
+    /**
+     * Article state.
+     *
+     * @var string
+     */
+    private $state;
 
     public function getId() {
         return $this->id;
@@ -50,6 +57,15 @@ class Article
     public function setContent($content) {
         $this->content = $content;
         return $this;
+    }
+    
+    public function setState($state) {
+        $this->state = $state;
+        return $this;
+    }
+    
+    public function getState() {
+        return $this->state;
     }
 }
 

@@ -33,7 +33,7 @@ class CommentDAO extends DAO
 
         // art_id is not selected by the SQL query
         // The article won't be retrieved during domain objet construction
-        $sql = "select com_id, com_content, com_author, com_mail, parent_id from t_comment where art_id=? order by com_id";
+        $sql = "select * from t_comment where art_id=? order by com_id";
         $result = $this->getDb()->fetchAll($sql, array($articleId));
         // Convert query result to an array of domain objects
         
@@ -106,6 +106,8 @@ class CommentDAO extends DAO
         $comment->setAuthor($row['com_author']);
         $comment->setMail($row['com_mail']);
         $comment->setParent($row['parent_id']);
+        $comment->setDate($row['t_date']);
+        $comment->setState($row['t_state']);
         return $comment;
     }
 
@@ -137,14 +139,16 @@ class CommentDAO extends DAO
      *
      * @param object comment to save in DB
      */
-    public function  SaveComment(Comment $comment)
+    public function  save(Comment $comment)
     {
         $commentdata = array(
             'art_id' => $comment->getArticle()->getId(),
             'com_author' => $comment->getAuthor(),
             'com_content' => $comment->getContent(),
             'com_mail' => $comment->getMail(),
-            'parent_id' => $comment->getParent()
+            'parent_id' => $comment->getParent(),
+            't_date' => $comment->getDate(),
+            't_state'=> $comment->getState()
         );    
         
         if($comment->getId())
@@ -217,6 +221,15 @@ class CommentDAO extends DAO
         $this->getDb()->delete('t_comment', array('com_id' => $id));
     }
 
-    
+    public function findAlerts()
+    {
+        $sql = "select * from t_comment where t_state= 'signale'";
+        $row = $this->getDb()->fetchAssoc($sql);
+
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("No comment matching id " . $id); 
+    }
     
 }

@@ -50,7 +50,6 @@ $app->match('/article/{id}', function ($id, Request $request) use ($app) {
             $comment->setParent($parent_id);
             $parent = $comments[$parent_id];
             $parent->setChild($comment);
-            var_dump($parent);
             $app['dao.comment']->SaveComment($comment);
             $app['dao.comment']->SaveComment($parent);
             $app['session']->getFlashBag()->add('success', 'Votre commentaire à bien été envoyé.');
@@ -78,6 +77,17 @@ $app->match('/article/{id}', function ($id, Request $request) use ($app) {
     return $app['twig']->render('article.html.twig', array('article' => $article, 'comments' => $comments, 'parent_id' => $parent_id, 'commentForm' => $commentFormView));
 })->bind('article');
 
+//report a comment
+$app->get('comment/{comment_id}/report', function($comment_id) use ($app) {
+    $comment = $app['dao.comment']->find($comment_id);
+    $article = $comment->getArticle();
+    $id = $article->getId();
+    $comment->setState('signale');
+    $app['dao.comment']->save($comment);
+    $app['session']->getFlashBag()->add('success', "L'article à bien été signalé.");
+    return $app->redirect($app['url_generator']->generate('article', array ('id' => $id)));
+})->bind('comment_report');
+
 // Login form
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.html.twig', array(
@@ -104,8 +114,19 @@ $app->match('/admin/article/add', function(Request $request) use ($app) {
     $articleForm->handleRequest($request);
     
     if ($articleForm->isSubmitted() && $articleForm->isValid()) {
-        $app['dao.article']->save($article);
-        $app['session']->getFlashBag()->add('success', 'The article was successfully created.');
+        $state = $articleForm['state']->getData();
+        if($state == false)
+        {
+            $article->setState('brouillon');
+            $app['dao.article']->save($article);
+            $app['session']->getFlashBag()->add('success', 'L\'artcile a été mis aux brouillons.');
+        }
+        else
+        {
+            $article->setState('publie');
+            $app['dao.article']->save($article);
+            $app['session']->getFlashBag()->add('success', 'L\'artcile a été publié.');
+        }
         return $app->redirect('/admin');
     }
     return $app['twig']->render('article_form.html.twig', array(
@@ -119,8 +140,19 @@ $app->match('/admin/article/{id}/edit', function($id, Request $request) use ($ap
     $articleForm = $app['form.factory']->create(ArticleType::class, $article);
     $articleForm->handleRequest($request);
     if ($articleForm->isSubmitted() && $articleForm->isValid()) {
-        $app['dao.article']->save($article);
-        $app['session']->getFlashBag()->add('success', 'The article was successfully updated.');
+        $state = $articleForm['state']->getData();
+        if($state == false)
+        {
+            $article->setState('brouillon');
+            $app['dao.article']->save($article);
+            $app['session']->getFlashBag()->add('success', 'L\'artcile a été mis aux brouillons.');
+        }
+        else
+        {
+            $article->setState('publie');
+            $app['dao.article']->save($article);
+            $app['session']->getFlashBag()->add('success', 'L\'artcile a été publié.');
+        }
         return $app->redirect('/admin');
     }
     return $app['twig']->render('article_form.html.twig', array(
@@ -134,7 +166,7 @@ $app->get('/admin/article/{id}/delete', function($id, Request $request) use ($ap
     $app['dao.comment']->deleteAllByArticle($id);
     // Delete the article
     $app['dao.article']->delete($id);
-    $app['session']->getFlashBag()->add('success', 'The article was successfully removed.');
+    $app['session']->getFlashBag()->add('success', 'L\'artcile a été supprimé.');
     // Redirect to admin home page
     return $app->redirect($app['url_generator']->generate('admin'));
 })->bind('admin_article_delete');
@@ -142,14 +174,14 @@ $app->get('/admin/article/{id}/delete', function($id, Request $request) use ($ap
 // Edit an existing comment
 $app->match('/admin/comment/{id}/edit', function($id, Request $request) use ($app) {
     $comment = $app['dao.comment']->find($id);
-    $commentForm = $app['form.factory']->create(CommentType::class, $comment);
+    $commentForm = $app['form.factory']->create(CommentUserType::class, $comment);
     $commentForm->handleRequest($request);
     if ($commentForm->isSubmitted() && $commentForm->isValid()) {
         $app['dao.comment']->save($comment);
-        $app['session']->getFlashBag()->add('success', 'The comment was successfully updated.');
+        $app['session']->getFlashBag()->add('success', 'Le commentaire a été mis à jour.');
         return $app->redirect('/admin');
     }
-    return $app['twig']->render('comment_form.html.twig', array(
+    return $app['twig']->render('commentform.html.twig', array(
         'title' => 'Edit comment',
         'commentForm' => $commentForm->createView()));
 })->bind('admin_comment_edit');
@@ -157,8 +189,9 @@ $app->match('/admin/comment/{id}/edit', function($id, Request $request) use ($ap
 // Remove a comment
 $app->get('/admin/comment/{id}/delete', function($id, Request $request) use ($app) {
     $app['dao.comment']->delete($id);
-    $app['session']->getFlashBag()->add('success', 'The comment was successfully removed.');
+    $app['session']->getFlashBag()->add('success', 'Le commentaire à été supprimé.');
     return $app->redirect('/admin');
     // Redirect to admin home page
     return $app->redirect($app['url_generator']->generate('admin'));
 })->bind('admin_comment_delete');
+

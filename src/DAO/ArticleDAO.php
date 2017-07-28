@@ -53,6 +53,7 @@
         $article->setId($row['art_id']);
         $article->setTitle($row['art_title']);
         $article->setContent($row['art_content']);
+        $article->setState($row['art_state']);
         return $article;
     }
     
@@ -65,6 +66,7 @@
         $articleData = array(
             'art_title' => $article->getTitle(),
             'art_content' => $article->getContent(),
+            'art_state' => $article->getState()
             );
 
         if ($article->getId()) {

@@ -60,7 +60,19 @@ class Comment
      */
     private $mail;
     
+      /**
+     * date
+     *
+     * @var \MicroCMS\Domain\Comment
+     */
+    private $date;
     
+      /**
+     * state
+     *
+     * @var \MicroCMS\Domain\Comment
+     */
+    private $state;
 
     public function getId() {
         return $this->id;
@@ -92,6 +104,14 @@ class Comment
     
     public function getMail(){
         return $this->mail;
+    }
+    
+    public function getstate(){
+        return $this->state;
+    }
+    
+    public function getDate(){
+        return $this->date;
     }
     
     public function setId($id) {
@@ -131,11 +151,23 @@ class Comment
         $this->article = $article;
         return $this;
     }
+    
      public function setMail($mail)
     {
          $this->mail = $mail;
          return $this;
     }
     
+    public function setState($state)
+    {
+        $this->state = $state;
+        return $state;
+    }
+    
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $date;
+    }
         
 }

@@ -2,44 +2,61 @@
 
 {% block title %}{{ article.title }}{% endblock %}
 
-{% block content %}    
-    <h2>{{ article.title }}</h2>
+{% block content %}
+    {% if article.state == 'publie' %}
+    
+    <h2 class="center">{{ article.title }}</h2>
+    <div class="article">
     <p>{{ article.content }}</p>
-   
+    </div>
+    {% endif %}
     <div class="Comments-container">
         <div class="commentsReader">
         <h3>Comments</h3>
             {%if comments != null %}
                 {% for comment in comments %}
                     <div class="row">
-                    <div class="col-md-12"><span class="author">{{ comment.author}}</span> a dit : <button class="btn btn-default"><a href="{{article.id}}?replyto={{comment.id}}">répondre</a></button> <br>{{ comment.content }}
-                        {% if parent_id != null and parent_id == comment.id %}
-                            <div class="col-md-12">
-                                <h4>Répondre a {{comment.author}} :</h4>
-                            {% block replytocomment %}{%include "commentform.html.twig"%}{% endblock %}
-                            </div>
-                        {% else %}
-                        </div>        
-                        {% endif %}  
+                        
+                        <div class="col-md-12">
+                            <div class="comment-box">
+                                    <div class="comment-head">{{ comment.author}} a dit : <div class="right"><button class="btn btn-default"><a href="{{article.id}}?replyto={{comment.id}}">répondre</a></button></div><br></div>
+                                    <div class="comment-content">{{ comment.content }}</div>
+                                <a href="{{path('comment_report', {'comment_id': comment.id})}}"><h6>Signaler</h6></a> 
+                                {% if parent_id != null and parent_id == comment.id %}
+                                    <div class="col-md-12">
+                                        <h4>Répondre a {{comment.author}} :</h4>
+                                    {% block replytocomment %}{%include "commentform.html.twig"%}{% endblock %}
+                                    </div>
+                                {% else %}
+                                </div></div>        
+                                {% endif %}  
 
                         {% if comment.children != null %}
                            {% for child in comment.children %}              
-                           <div class="col-md-12" style="margin-left: 50px;"><span class="author">{{ child.author}}</span> a dit : <button class="btn btn-default"><a href="{{article.id}}?replyto={{child.id}}">répondre</a></button> <br> {{ child.content }}                  
+                           <div class="col-md-12" style="margin-left: 50px;">
+                                <div class="comment-box">
+                                    <div class="comment-head">{{ child.author}} a dit : <div class="right"><button class="btn btn-default"><a href="{{article.id}}?replyto={{child.id}}">répondre</a></button></div><br></div>
+                                    <div class="comment-content">{{ child.content }}</div>                               
+                           <a href="{{path('comment_report', {'comment_id': child.id})}}"><h6>Signaler</h6></a> 
                                 {% if parent_id != null and parent_id == child.id %}
                                     <div class="col-md-12">
                                         <h4>Répondre a {{child.author}} :</h4>
                                     {% block replytochild %}{%include "commentform.html.twig"%}{% endblock %}
                                     </div>
                                 {%else%}
-                                </div>
+                                </div></div>
                                 {% endif %}     
 
                                 {% if child.children != null %}
                                         {% for child2 in child.children %}                               
-                                            <div class="col-md-12" style="margin-left: 100px;"><span class="author">{{child2.author}}</span> a dit : <br> {{ child2.content }}</div>
+                                        <div class="col-md-12" style="margin-left: 100px;">
+                                                <div class="comment-box">
+                                                    <div class="comment-head">{{ child2.author}} a dit : <div class="right"><button class="btn btn-default"><a href="{{article.id}}?replyto={{child2.id}}">répondre</a></button></div><br></div>
+                                                    <div class="comment-content">{{ child2.content }}</div>   
+                                            <a href="{{path('comment_report', {'comment_id': child2.id})}}"><h6>Signaler</h6></a></div></div> 
                                         {% endfor %}
                                      {% else %}
-                                         </div><br><!-- /.row -->
+                                     </div><br><!-- /.row -->
                                 {% endif %}                   
                 {%endfor%}
                 </div><br> 
