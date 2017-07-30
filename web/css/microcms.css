@@ -3,12 +3,12 @@
 }
 body { 
     padding-top: 50px;
-    background-color: #e6e6e6;
+    background-color: white;
 
 }
 
 .navbar-inverse {
-    background-color: #f5f5f5;
+    background-color: rgba(51, 122, 183, 0.81);
     border-color: #080808;
 }
 
@@ -55,7 +55,7 @@ h6{
 }
 
 .comment-box .comment-head {
-	background: #FCFCFC;
+	background: rgba(51, 122, 183, 0.38);
 	padding: 10px 12px;
 	border-bottom: 1px solid #E5E5E5;
 	overflow: hidden;
@@ -63,6 +63,7 @@ h6{
 	-moz-border-radius: 4px 4px 0 0;
 	border-radius: 4px 4px 0 0;
         font-weight: bold;
+        font-size: 1.2em;
 }
 
 
@@ -87,7 +88,7 @@ h6{
 }
 
 .comment-box .comment-content {
-	background: #FFF;
+	background: rgba(51, 122, 183, 0.07);
 	padding: 12px;
 	font-size: 15px;
 	color: #595959;
@@ -127,7 +128,7 @@ h6{
 
 
 .container .article {
-    background-color: white;
+    background-color: rgba(51, 122, 183, 0.1);
     /* border: navy; */
     border-radius: 5px 5px 5px 5px;
     /* margin: 20px; */
@@ -151,4 +152,74 @@ h6{
 label{
     color: black !important;
     font-size: 1.2em !important;
+}
+
+.tab-content
+{
+    background-color: white;
+    border-radius: 5px 5px 5px 5px;
+    margin: 10px;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #d9534f !important;
+}
+
+.navbar-inverse .navbar-brand {
+    color: black;
+    border: none !important;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: black;
+}
+
+.card-content{
+    
+    background-color: #7bb1e0;  
+}
+
+a{
+color: black !important;
+}
+a:hover{
+    font-weight: bold;
+}
+small{
+    color: black !important;
+}
+
+.navbar-brand{
+    font-size: 2em;
+    font-family: sans-serif;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: rgb(89, 147, 197) !important;
+}
+
+li.dropdown.open{
+    background-color: rgb(89, 147, 197) !important;
+}
+a.dropdown-toggle{
+    background-color: rgba(255, 255, 255, 0) !important;
+    
+}
+ul.dropdown-menu {
+    background-color: rgb(89, 147, 197) !important;
+}
+.navbar-inverse {
+    background-color: rgba(51, 122, 183, 0.81);
+    border-color: rgba(255, 255, 255, 0);
+}
+.dropdown-menu>li>a:hover{
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0);
+}
+div.card-reveal {
+        background-color: rgb(123, 177, 224) !important;
+}
+
+.button.btn.btn-default {
+    color: white !important;
 }
