@@ -11,6 +11,16 @@ $app->get('/', function () use ($app) {
 return $app['twig']->render('index.html.twig', array('articles'=>$articles));
 })->bind('home');
 
+$app->get('/about', function () use ($app) {
+return $app['twig']->render('about.html.twig');
+})->bind('about');
+
+$app->get('/articles', function () use ($app) {
+    $articles = $app['dao.article']->findAll();
+return $app['twig']->render('book.html.twig', array('articles' => $articles));
+})->bind('articles');
+
+
 //Article page
 $app->match('/article/{id}', function ($id, Request $request) use ($app) {
     $article = $app['dao.article']->find($id);
@@ -22,12 +32,14 @@ $app->match('/article/{id}', function ($id, Request $request) use ($app) {
     if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY') == false){
         $user = $app['user'];
         $comment->setAuthor($user);
+        $comment->setState('publie');
     }
     else {
     $user = $app['user']->getUsername();
     $mail = $app['user']->getMail();
     $comment->setAuthor($user);
     $comment->setMail($mail);
+    $comment->setState('publie');
     }
     
     if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY') == false){
@@ -48,10 +60,11 @@ $app->match('/article/{id}', function ($id, Request $request) use ($app) {
     if ($commentForm->isSubmitted() && $commentForm->isValid()) {
         if($parent_id != 0){
             $comment->setParent($parent_id);
+            $comment->setDate(date("Y-m-d H:i:s"));
             $parent = $comments[$parent_id];
             $parent->setChild($comment);
-            $app['dao.comment']->SaveComment($comment);
-            $app['dao.comment']->SaveComment($parent);
+            $app['dao.comment']->save($comment);
+            $app['dao.comment']->save($parent);
             $app['session']->getFlashBag()->add('success', 'Votre commentaire à bien été envoyé.');
             
         }

@@ -68,6 +68,9 @@
             'art_content' => $article->getContent(),
             'art_state' => $article->getState()
             );
+        
+        
+           
 
         if ($article->getId()) {
             // The article has already been saved : update it

@@ -1,33 +1,42 @@
+
 {% extends "layout.html.twig" %}
 
-{% block title %}Home{% endblock %}
 
 {% block content %}
-    <div class="container" style="padding-top: 20px;">
-        <div class="wrapper">
-            {% for article in articles %}
-            {% if article.state == 'publie' %}
-            <div class="col-md-4">  
-                <div class="card">
+    {% include 'materialize.html.twig' %}
+    <div class="parallax-container">
+        <div class="parallax"><img src="Photos/mer.jpg"></div>
+    </div>
+    <div class="section white">        
+        <div class="row container" style="padding-top: 20px;">
+            <h3 class="center">{% block title %}Accueil{% endblock %}</h3>
+            <div class="row">
+                {% for article in articles %}
+                {% if article.state == 'publie' %}
+                <div class="col s4">  
+                  <div class="card teal">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="http://www.hakimlouahem.com/Photos/{{ article.id}}.jpg"  width="50" height="200">
+                        <img class="activator responsive-img" src="Photos/{{article.id}}.jpg" height="300" width="300">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">{{ article.title }}<i class="glyphicon glyphicon-option-horizontal" style="float: right;"></i></span>
-                        <p><a href="{{ path ('article', {'id': article.id})}}">En lire plus</a></p>
+                            <span class="card-title activator grey-text text-darken-4">{{ article.title }}<i class="material-icons right">more_vert</i></span>
+                            <p><a href="{{ path ('article', {'id': article.id})}}">En lire plus</a></p>    
                     </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{article.title }}<i class="glyphicon glyphicon-option-vertical" style="float: right;"></i></span>
-                        <br><p>{{ article.content | truncate(60) }}</p>
+                    <div class="card-reveal teal">
+                        <span class="card-title grey-text text-darken-4">{{article.title}}<i class="material-icons right">close</i></span>
+                        <p>{{ article.content | truncate(60) | raw}}</p>
                     </div>
-                </div>
-            </div>
-                 
-        {% endif %}
-        {% endfor %}
-        </div>  
+                  </div>       
+                </div>                 
+            {% endif %}
+            {% endfor %}
+            </div>  
+        </div>
+    </div>       
+    <div class="parallax-container">
+        <div class="parallax"><img src="Photos/boreales.jpg"></div>
     </div>  
 {% endblock %}
 
  
-            
+   

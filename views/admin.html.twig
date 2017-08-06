@@ -1,15 +1,18 @@
-{% extends "layout.html.twig" %}
 {% set adminMenu = true %}
-
-{% block title %}Administration{% endblock %}
+{% extends 'layout.html.twig' %}
+{% block title %}<h3 class="center">Administration</h3>{% endblock %}
 
 {% block content %}
+{% include "bootstrap.html.twig" %}
+{% include "materialize.html.twig" %}
+<div class="container">
 <h2 class="text-center">{{ block('title') }}</h2>
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">
     {{ flashMessage }}
 </div>
 {% endfor %}
+
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <ul class="nav nav-tabs nav-justified">
@@ -35,7 +38,7 @@
                 {% if article.state != 'brouillon' %}
                 <tr>
                     <td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></td>
-                    <td>{{ article.content | truncate(60) }}</td>
+                    <td>{{ article.content| striptags | truncate(60) }}</td>
                     <td class="button">
                         <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                         <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#articleDialog{{ article.id }}"><span class="glyphicon glyphicon-remove"></span>
@@ -179,7 +182,7 @@
          {% if article.state == 'brouillon' %}
                 <tr>
                     <td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></td>
-                    <td class="col-md-5">{{ article.content | truncate(60) }}</td>
+                    <td class="col-md-5">{{ article.content | striptags | truncate(60) }}</td>
                     <td class="col-md-1">{{ article.state}}</td>
                     <td class="col-md-2">
                         <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
@@ -212,6 +215,7 @@
      <div class="alert alert-warning">No comments found.</div>
      {% endif %}
     </div>
+</div>
 </div>
 {% endblock %}
 

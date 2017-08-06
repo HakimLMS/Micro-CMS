@@ -1,0 +1,28 @@
+
+{% extends "layout.html.twig" %}
+
+
+
+{% block content %}
+    {% include 'materialize.html.twig' %}
+    {% block Title %} <h3 class="center">Qui suis-je ?</h3>{% endblock %}
+    <div class="container">
+            <div class="col s2 center">
+                    <img class="circle responsive-img" src="{{ asset('/Photos/ecrivain.jpg') }}"/>
+            </div>
+            <div class="col s6 card-panel grey lighten-5"> 
+                <div class="presentation">
+                <p class="flow-text">
+                    Donec augue sapien, venenatis vel mauris ut, maximus posuere leo. Morbi tellus felis, lobortis vitae malesuada vitae, porttitor nec leo. Maecenas hendrerit et velit id dictum. Mauris rutrum neque nisi, in sodales turpis blandit eget. Morbi efficitur efficitur nibh in venenatis. Maecenas feugiat eu mass0a nec pellentesque.
+                </p><br>
+                <p class="flow-text">
+                    Mauris ligula turpis, rhoncus a tortor eget, interdum gravida risus. Maecenas posuere leo in dolor consequat accumsan vitae ut libero. Cras vehicula odio vitae mi pellentesque, ut porta nunc elementum. Etiam non lacinia mauris. Ut sem lacus, consectetur quis neque vel, molestie pharetra lectus. Proin fermentum quis tortor id lobortis. Nam nec iaculis arcu.raesent vel magna ante. Suspendisse elit enim, dapibus vel fringilla id, sodales at ligula. Donec nec efficitur risus. Donec et ante non nisi suscipit pellentesque. Donec maximus eleifend pellentesque. Suspendisse porta accumsan fermentum. Quisque et lacus augue. Praesent mollis lectus a risus dapibus, eget hendrerit metus dapibus.
+                    Praesent mollis eget erat sit amet laoreet.
+                </p><br>
+                <p class="flow-text">
+                    Nunc sit amet dapibus ex. Nam quis nunc ut massa convallis efficitur. Etiam at lacus fermentum libero placerat gravida. Suspendisse lobortis dolor sed dictum interdum. Proin scelerisque ex quis venenatis egestas. Proin condimentum eros purus, eu blandit sem placerat semper.    
+                </p>
+                </div>
+            </div>      
+    </div>
+{% endblock %}

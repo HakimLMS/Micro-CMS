@@ -1,46 +1,52 @@
-
-<div class="commentsAdder">
+<!doctype html>
+{% include 'materialize.html.twig' %}
+<div class="container">
             {{ form_start(commentForm) }}
-                    <div class="form-group">
+                    <form class="s12">
                         {% if is_granted('IS_AUTHENTICATED_FULLY')== false %}
-                            <div class=" col-md-4">
-                                <p>
-                                {{ form_label(commentForm.author, 'Pseudo :',{'label_attr':{
-                                    'class':'author'
-                                }}) }}
-                                {{ form_widget(commentForm.author, { 'attr':{
-                                    'rows':'1',
-                                    'placeholder': 'Entrez votre pseudo'
-                                }}) }}
-                                </p>
-                            </div>
-                            <div class=" col-md-4">
-                                {{ form_label(commentForm.mail, 'Email :',{'label_attr':{
-                                    'class':'email'
-                                }}) }}
-                                {{ form_widget(commentForm.mail, { 'attr':{
-                                    'rows':'1',
-                                    'placeholder': 'Entrez votre adresse Email'
-                                }}) }}
+                            <div class="row">
+                                <div class=" input-field col s4">
+                                    <p>
+                                    {{ form_label(commentForm.author, 'Pseudo :',{'label_attr':{
+                                        'class':'author'
+                                    }}) }}
+                                    {{ form_widget(commentForm.author, { 'attr':{
+                                        'rows':'1',
+                                        'placeholder': 'Entrez votre pseudo'
+                                    }}) }}
+                                    </p>
+                                </div>
+                                <div class=" input-field col s4">
+                                    <p>
+                                    {{ form_label(commentForm.mail, 'Email :',{'label_attr':{
+                                        'class':'email'
+                                    }}) }}
+                                    {{ form_widget(commentForm.mail, { 'attr':{
+                                        'rows':'1',
+                                        'placeholder': 'Entrez votre adresse Email'
+                                    }}) }}
+                                    </p>
+                                </div>
                             </div>
                         {% endif %}    
-                    </div><!-- /.form-group -->
+                    <!-- /.form-group -->
                 <div class="form-group">
                     {{ form_errors(commentForm.content) }}
                     {{ form_widget(commentForm.content, { 'attr':  {
-                        'rows': '6',
-                        'class': 'form-control',
+                        'rows': '4',
+                        'class': 'materialize-textarea',
                         'placeholder': 'Entrez votre commentaire'
                     }}) }}
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Publier commentaire" />
+                    <button type="submit" class="btn" name="action">Publier commentaire</button> 
                 </div><!-- /.form-group -->
-            {{ form_end(commentForm) }}
-       
-</div>
+                </form>
+            {{ form_end(commentForm) }}      
+
 {% for flashMessage in app.session.flashbag.get('success') %}
     <div class="alert alert-success">
     {{ flashMessage }}
     </div>
-{% endfor %}     
+{% endfor %}
+</div>
