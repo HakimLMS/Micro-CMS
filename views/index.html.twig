@@ -21,7 +21,7 @@
                     </div>
                     <div class="card-reveal teal">
                         <span class="card-title grey-text text-darken-4">{{article.title}}<i class="material-icons right">close</i></span>
-                        <p>{{ article.content | truncate(60) | raw}}</p>
+                        <p>{{ article.content| striptags | truncate(60)| raw}}</p>
                     </div>
                   </div>                 
             {% endif %}

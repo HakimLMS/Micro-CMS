@@ -10,8 +10,12 @@
     src: url('../fonts/JennaSue.ttf');
 }
 
-
-
+.dropdown-content li>a, .dropdown-content li>span {
+    color: black !important;
+}
+.alert-success {
+    margin-bottom: 70px !important;
+}
 html {
   height: 100%;
 }
@@ -155,10 +159,10 @@ h3{
     font-size: 4em !important;
 }
 .page-footer{
-    margin-top: 50px !important;
+margin-top: 50px !important;
 bottom: 0;
-   position :absolute;
-   width: 100%;
+position :absolute;
+width: 100%;
 }
 
 .card .card-image img {
@@ -205,7 +209,45 @@ a:hover{
     color: white !important;
 }
 
-button, a{
+.button a{
+    color: white !important;
+}
+
+span{
+    color: white !important;
+}
+
+td a{
+    color:#009688!important;
+    font-weight: bold;
+}
+
+li a {
+    color: black !important;
+}
+
+nav div li a {
+    color: white !important;
+}
+
+nav div li a:hover {
+    color: white !important;
+}
+
+#mceu_11 button span {
+    color: black !important;
+}
+.card-action a {
+    color: #009688 !important;
+}
+.mce-notification-inner a {
+    color: blue !important;
+}
+li a:hover {
+    color:#009688!important;
+}
+
+button a{
     color: white !important;
 }
 @media screen and (max-width: 700px) {

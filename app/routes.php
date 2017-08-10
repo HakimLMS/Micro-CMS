@@ -15,13 +15,13 @@ $app->get('/articles', "MicroCMS\Controler\FrontControler::BookAction") ->bind('
 $app->match('/article/{id}', "MicroCMS\Controler\FrontControler::ArticleAction")->bind('article');
 
 //report a comment
-$app->get('comment/{comment_id}/report',  "MicroCMS\Controler\APIControler::ReportAction")->bind('comment_report');
+$app->get('comment/{comment_id}/report', "MicroCMS\Controler\APIControler::ReportAction")->bind('comment_report');
 
 // Login form
 $app->get('/login', "MicroCMS\Controler\AdminControler::LoginAction")->bind('login');
 
 // Admin home page
-$app->get('/admin',"MicroCMS\Controler\AdminControler::AdminAction")->bind('admin');
+$app->get('/admin', "MicroCMS\Controler\AdminControler::AdminAction")->bind('admin');
 
 // Add a new article
 $app->match('/admin/article/add',"MicroCMS\Controler\APIControler::AddArticleAction" )->bind('admin_article_add');

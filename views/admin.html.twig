@@ -10,7 +10,7 @@
                 {{ flashMessage }}
             </div>
         {% endfor %}
-<div class="container">
+<div class="container" style="margin-bottom: 100px;">
         <div class="row center">
             <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <ul class="nav nav-tabs nav-justified">
@@ -36,7 +36,7 @@
                                 {% if article.state != 'brouillon' %}
                                     <tr>
                                         <td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></td>
-                                        <td>{{ article.content| striptags | truncate(60) }}</td>
+                                        <td>{{ article.content| striptags | truncate(60)| raw }}</td>
                                         <td class="">
                                             <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn-floating btn-large waves-effect waves-light" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                                             <button type="button" class="btn-floating btn-large waves-effect waves-light red" title="Delete" data-toggle="modal" data-target="#articleDialog{{ article.id }}"><span class="glyphicon glyphicon-remove"></span>
@@ -52,8 +52,8 @@
                                                             Voulez vous vraiment supprimer cet article ?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                            <a href="{{ path('admin_article_delete', { 'id': article.id }) }}" class="btn btn-danger">Confirm</a>
+                                                            <button type="button" class=" btn-large waves-effect waves-light" data-dismiss="modal">Cancel</button>
+                                                            <a href="{{ path('admin_article_delete', { 'id': article.id }) }}" class="btn-large waves-effect waves-light red">Confirm</a>
                                                         </div>
                                                     </div><!-- /.modal-content -->
                                                 
@@ -101,8 +101,8 @@
                                                             Voulez vous vraiment moderer ce commentaire ?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                            <a href="{{ path('moderate', { 'id': comment.id }) }}" class="btn btn-danger">Confirm</a>
+                                                            <button type="button" class="btn-large waves-effect waves-light" data-dismiss="modal">Cancel</button>
+                                                            <a href="{{ path('moderate', { 'id': comment.id }) }}" class="btn-large waves-effect waves-light red">Confirm</a>
                                                         </div>
                                                     </div><!-- /.modal-content -->
                                                 </div><!-- /.modal-dialog -->
@@ -139,7 +139,7 @@
                                         <td>{{ comment.author}}</td>
                                         <td>{{ comment.content | truncate(60) }}</td>
                                         <td class="button">
-                                            <a href="{{ path('rehab', { 'id': comment.id }) }}" class="btn-floating btn-large waves-effect waves-light" title="Edit"><i class="small material-icons">check</i></a>
+                                            <a href="{{ path('rehab', { 'id': comment.id }) }}" class="btn-floating btn-large waves-effect waves-light" title="Rehabiliter"><i class="small material-icons">check</i></a>
                                             <button type="button" class="btn-floating btn-large waves-effect waves-light red" title="Modérer" data-toggle="modal" data-target="#commentDialog{{ comment.id }}"><span class="glyphicon glyphicon-remove"></span>
                                             </button>
                                             <div class="modal fade" id="commentDialog{{ comment.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -153,8 +153,8 @@
                                                             Voulez vous vraiment modérer ce commentaire ?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                            <a href="{{ path('moderate', { 'id': comment.id }) }}" class="btn btn-danger">Confirm</a>
+                                                            <button type="button" class="btn-large waves-effect waves-light " data-dismiss="modal">Cancel</button>
+                                                            <a href="{{ path('moderate', { 'id': comment.id }) }}" class="btn-large waves-effect waves-light red">Confirm</a>
                                                         </div>
                                                     </div><!-- /.modal-content -->
                                                 </div><!-- /.modal-dialog -->
@@ -180,7 +180,7 @@
                                 {% if article.state == 'brouillon' %}
                                     <tr>
                                         <td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></td>
-                                        <td class="col-md-5">{{ article.content | striptags | truncate(60) }}</td>
+                                        <td class="col-md-5">{{ article.content| striptags | truncate(60)| raw }}</td>
                                         <td class="col-md-1">{{ article.state}}</td>
                                         <td class="col-md-2">
                                             <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn-floating btn-large waves-effect waves-light" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
@@ -197,8 +197,8 @@
                                                             Voulez vous vraiment supprimer cet article ?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                            <a href="{{ path('admin_article_delete', { 'id': article.id }) }}" class="btn btn-danger">Confirm</a>
+                                                            <button type="button" class="btn-large waves-effect waves-light" data-dismiss="modal">Cancel</button>
+                                                            <a href="{{ path('admin_article_delete', { 'id': article.id }) }}" class="btn-large waves-effect waves-light red">Confirm</a>
                                                         </div>
                                                     </div><!-- /.modal-content -->
                                                 </div><!-- /.modal-dialog -->

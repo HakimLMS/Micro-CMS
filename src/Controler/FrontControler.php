@@ -5,7 +5,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use MicroCMS\Domain\Comment;
 use MicroCMS\Form\Type\CommentType;
-
+use MicroCMS\Form\Type\CommentUserType;
 
 class FrontControler{
     
