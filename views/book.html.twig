@@ -2,24 +2,25 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-{% include 'materialize.html.twig' %}
-<div class="container">
-    <table>
-        <thead>
-              <tr>
-                  <th>Titre</th>
-                  <th>Aperçu</th>
-              </tr>
-        </thead>
+{% block title %} <h3 class="center">Liste des chapitres</h3> {% endblock%}
+ <div class="row">
         {% for article in articles %}
             {% if article.state != "brouillon" %}     
-                <tr>
-                    <td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></td>
-                    <td>{{ article.content| striptags | truncate(60) }}</td>
-                </tr>
+                   
+                      <div class="card">
+                        <div class="card-image">
+                           <img class="activator responsive-img" src="Photos/{{article.id}}.jpg">
+                          <span class="card-title">{{ article.title }}</span>
+                        </div>
+                        <div class="card-content">
+                          <p>{{ article.content| striptags | truncate(50) }}</p>
+                        </div>
+                        <div class="card-action">
+                          <a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">Lire l'article</a>
+                        </div>
+                      </div>
+                    
             {% endif %}
         {% endfor %}
-    </table>
-</div>
-    
+ </div><br>
 {% endblock %}

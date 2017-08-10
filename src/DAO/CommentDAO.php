@@ -59,8 +59,8 @@ class CommentDAO extends DAO
                $parent->setChild($childrens_by_parent);
             }  
         }
-        
-        return $comments;
+            
+    return $comments;
     }
     
 

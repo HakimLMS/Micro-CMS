@@ -12,13 +12,21 @@
 
 
 
+html {
+  height: 100%;
+}
 
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
 
 .articleTitle:hover, .articleTitle:focus {
     text-decoration: none;
 }
 body { 
-    padding-top: 50px;
     background-color: white;
 
 }
@@ -137,9 +145,6 @@ div p{
     color: white !important;
 }
 
-.container {
-    margin-top: 30px !important;
-}
 
 nav .brand-logo{
     font-family: Logo;
@@ -148,4 +153,77 @@ nav .brand-logo{
 h3{
     font-family: Title !important;
     font-size: 4em !important;
+}
+.page-footer{
+    margin-top: 50px !important;
+bottom: 0;
+   position :absolute;
+   width: 100%;
+}
+
+.card .card-image img {
+    height: 300px !important;
+}
+
+
+.card{
+    height: 450px !important;
+    width: 350px !important;
+        float: left;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+
+
+.container{
+    width: 97% !important; 
+    margin-top: 30px !important;
+}
+
+.row{
+    width: 50%;
+    margin-left: auto !important;
+    margin-top: auto !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+.container .row{
+    margin-right: auto !important;
+    margin-left: auto !important;
+    width: 100% !important;
+}
+
+.modal{
+    background-color: rgba(0,0,0,0) !important;
+    border: none !important;
+     box-shadow:none !important;
+    width: 33%;
+}
+a:hover{
+    color: white !important;
+}
+
+button, a{
+    color: white !important;
+}
+@media screen and (max-width: 700px) {
+  .card {
+    height: 400px !important;
+    width: 300px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+.row{
+    width: 80%;
+    margin-left: auto !important;
+    margin-top: auto !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+
+
+
 }

@@ -1,9 +1,9 @@
+
 {% extends "layout.html.twig" %}
 
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
-    {% include 'materialize.html.twig' %}
     {% if article.state == 'publie' %}
     
     <h3 class="center">{{ article.title }}</h3>
@@ -69,6 +69,7 @@
         {% if parent_id == null %}            
         {% block comment %}{%include "commentform.html.twig"%}{% endblock %}<br>
         {% else %}
-        <div class="container" style="padding-bottom: 30px;"><div class="col s12"><button class="btn btn-default"><a href="{{article.id}}">Commenter l'article</a></button></div></div>
+        <div class="container" style="padding-bottom: 100px;"><div class="col s12"><button class="waves-effect waves-light btn"><a href="{{article.id}}">Commenter l'article</a></button></div></div>
         {% endif%}
 {% endblock %}
+{% block script %}{% include 'bootstrap.html.twig' %}{% include 'materialize.html.twig'%} {% endblock %}

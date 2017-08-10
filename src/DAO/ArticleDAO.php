@@ -22,6 +22,23 @@
         }
         return $articles;
     }
+    /**
+     * Return a list of 6 lasts articles, sorted by Id (most recent first).
+     *
+     * @return array A list of all articles.
+     */
+    public function findLasts() {
+        $sql = "select * from t_articles where art_state = 'publie' order by art_id desc limit 6";
+        $result = $this->getDb()->fetchAll($sql);
+        
+        // Convert query result to an array of domain objects
+        $articles = array();
+        foreach ($result as $row) {
+            $articleId = $row['art_id'];
+            $articles[$articleId] = $this->buildDomainObject($row);
+        }
+        return $articles;
+    }
     
     
      /**

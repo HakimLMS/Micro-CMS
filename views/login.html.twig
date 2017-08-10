@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}User authentication{% endblock %}
+{% block title %}<h3 class="center">User authentication<h3>{% endblock %}
 
 {% block content %}
 <h2 class="text-center">{{ block('title') }}</h2>
@@ -9,6 +9,7 @@
     <strong>Login failed!</strong> {{ error }}
 </div>
 {% endif %}
+<div class="container">
 <div class="well">
     <form class="form-signin form-horizontal" role="form" action="{{ path('login_check') }}" method="post">
         <div class="form-group">
@@ -27,5 +28,6 @@
             </div>
         </div>
     </form>
+</div>
 </div>
 {% endblock %}
