@@ -9,7 +9,9 @@
     font-family: Title;
     src: url('../fonts/JennaSue.ttf');
 }
-
+.side-nav li a{
+    color: #009688 !important;
+}
 .dropdown-content li>a, .dropdown-content li>span {
     color: black !important;
 }
@@ -246,7 +248,9 @@ nav div li a:hover {
 li a:hover {
     color:#009688!important;
 }
-
+main {
+    padding-bottom: 200px !important;
+}
 button a{
     color: white !important;
 }
@@ -256,6 +260,7 @@ button a{
     width: 300px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    margin-bottom: 80px !important;
   }
 .row{
     width: 80%;
