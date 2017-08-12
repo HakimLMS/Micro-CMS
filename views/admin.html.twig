@@ -38,7 +38,7 @@
                                         <td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></td>
                                         <td>{{ article.content| striptags | truncate(60)| raw }}</td>
                                         <td class="">
-                                            <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn-floating btn-large waves-effect waves-light" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                            <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn-floating btn-large waves-effect waves-light" title="Edit"><i class="material-icons dp48">edit</i></a>
                                             <button type="button" class="btn-floating btn-large waves-effect waves-light red" title="Delete" data-toggle="modal" data-target="#articleDialog{{ article.id }}"><span class="glyphicon glyphicon-remove"></span>
                                             </button>
                                             <div class="modal fade" id="articleDialog{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -183,7 +183,7 @@
                                         <td class="col-md-5">{{ article.content| striptags | truncate(60)| raw }}</td>
                                         <td class="col-md-1">{{ article.state}}</td>
                                         <td class="col-md-2">
-                                            <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn-floating btn-large waves-effect waves-light" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                            <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn-floating btn-large waves-effect waves-light" title="Edit"><i class="material-icons dp48">edit</i></a>
                                             <button type="button" class="btn-floating btn-large waves-effect waves-light red" title="Delete" data-toggle="modal" data-target="#articleDialog{{ article.id }}"><span class="glyphicon glyphicon-remove"></span>
                                             </button>
                                             <div class="modal fade" id="articleDialog{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
